@@ -11,6 +11,7 @@ The Device_DEV project is a development environment to create and test libraries
 ## Coding standards
  - All code should be formatted using the .clang-format configuration provided. Exceptions are allowed only in certain structures that cannot be handled properly by the formatter.
  - All classes must be placed inside a namespace. Classes with similar usecases should be grouped within the same namespace.
+ - ``` #pragma once ``` must be used as a define guard.
 
 ## Naming standards
  - All functions, variables, typenames and classes must use the lowerCamelCase format.
@@ -19,14 +20,42 @@ The Device_DEV project is a development environment to create and test libraries
  - Abbreviations may not be used in the names of functions, variables, typenames and classes.
 
 ## Doxygen standards & code segmentation
+Since the implementation and documentation must be provided within the header file, the following rules need to be applied to keep code structured.
  - The following standards must be applied consecutively
- - Each file must provide a documentation segment:
+   - Must have a code block segment indicating the start of documentation
  ```
 /*************************************************************************\
  * Documentation
 \*************************************************************************/
 ```
-
+ - Must provide a doxygen documentation of the file/implementation version and a brief-, detailed-, and usage description of the provided functionality:
+```
+/**
+ * @file     <name>.hpp
+ * @version  n.n
+ * @brief    short description
+ * @details  detailed description
+ * @note     usage description
+ */
+```
+ - Must have a code block segment indicating the start of includes
+ ```
+/*************************************************************************\
+ * Documentation
+\*************************************************************************/
+```
+ - Must have a code block segment indicating the start of Prototypes
+ ```
+/*************************************************************************\
+ * Prototypes
+\*************************************************************************/
+```
+ - Must have a code block segment indicating the start of Implementation
+ ```
+/*************************************************************************\
+ * Implementation
+\*************************************************************************/
+```
 
 ## Project Structure
 - **Algorithms/**: Libraries for specific algorithms, suitable for embedded systems.
