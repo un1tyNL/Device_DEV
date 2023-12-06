@@ -52,6 +52,3 @@ The Device_DEV project is tailored for the development and testing of libraries 
 2. Navigate to the test files in the VS Code explorer.
 3. Run and manage tests using the Test Explorer in VS Code.
 
-## Conclusion
-
-Device_DEV is an ideal platform for developers in the field of embedded C programming. It offers essential tools and a flexible environment for the efficient development and thorough testing of libraries and modules. The project supports cross-platform development and provides options for using either Qt or VS Code as the development environment.
