@@ -8,6 +8,26 @@ The Device_DEV project is a development environment to create and test libraries
  - Floating point arithmatic should be avoided if possible, double precision is prohibited, fixed point is allowed.
    - Rationale: Not all Cortex-M processors have floating point units. In some cases floating point usage is inevitable, but should be kept at a minimum.
 
+## Coding standards
+ - All code should be formatted using the .clang-format configuration provided. Exceptions are allowed only in certain structures that cannot be handled properly by the formatter.
+ - All classes must be placed inside a namespace. Classes with similar usecases should be grouped within the same namespace.
+
+## Naming standards
+ - All functions, variables, typenames and classes must use the lowerCamelCase format.
+ - All member variables in a class have a "m_" prefix.
+ - Namespaces use TLA (three letter abreviation).
+ - Abbreviations may not be used in the names of functions, variables, typenames and classes.
+
+## Doxygen standards & code segmentation
+ - The following standards must be applied consecutively
+ - Each file must provide a documentation segment:
+ ```
+/*************************************************************************\
+ * Documentation
+\*************************************************************************/
+```
+
+
 ## Project Structure
 - **Algorithms/**: Libraries for specific algorithms, suitable for embedded systems.
 - **CommunicationManagement/**: Libraries for communication protocols in embedded environments.
