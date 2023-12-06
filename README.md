@@ -1,5 +1,4 @@
-# Device_DEV Device_DEV
-
+# Device_DEV 
 ## Project Overview
 The Device_DEV project is a development environment to create and test libraries/modules meant to be used in embedded C programs with C++ syntax and object orientation. The project can be build and ran in either Qt using QTest or in VSCode using the Google test framework. It is a hobby project with the goal of creating a well documented, structured and tested set of libraries/modules. ChatGPT is used (to some extent) to create summaries, descriptions or names for variables/functions/classes etc. The logic should always be checked and tested by the developer, no function may be introduced without a test.
 
