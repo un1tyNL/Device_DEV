@@ -1,6 +1,12 @@
 # Device_DEV 
 ## Project Overview
-The Device_DEV project is a development environment to create and test libraries/modules meant to be used in embedded C programs with C++ syntax and object orientation. The project can be build and ran in either Qt using QTest or in VSCode using the Google test framework. It is a hobby project with the goal of creating a well documented, structured and tested set of libraries/modules. ChatGPT is used (to some extent) to create summaries, descriptions or names for variables/functions/classes etc. The logic should always be checked and tested by the developer, no function may be introduced without a test.
+The Device_DEV project is a development environment to create and test libraries/modules meant to be used in embedded C99 programs with C++ syntax and object orientation to be used on Cortex-M processors. The project can be build and ran in either Qt using QTest or in VSCode using the Google test framework. It is a hobby project with the goal of creating a well documented, structured and tested set of libraries/modules. ChatGPT is used (to some extent) to create summaries, descriptions or names for variables/functions/classes etc. The logic should always be checked and tested by the developer, no function may be introduced without a test.
+
+## Development standards
+ - No dynamic memory allocation, nor libraries that make use of, may be used (for example <vector>).
+   - Rationale: this is not properly supported by the Cortex-M processors.
+ - Floating point arithmatic should be avoided if possible, double precision is prohibited, fixed point is allowed.
+   - Rationale: Not all Cortex-M processors have floating point units. In some cases floating point usage is inevitable, but should be kept at a minimum.
 
 ## Project Structure
 - **Algorithms/**: Libraries for specific algorithms, suitable for embedded systems.
