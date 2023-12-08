@@ -1,6 +1,6 @@
 # Device_DEV 
 ## Project Overview
-The Device_DEV project is a development environment to create and test libraries/modules meant to be used in embedded C99 programs with C++ syntax and object orientation to be used on Cortex-M processors. The project can be build and ran in either Qt using QTest or in VSCode using the Google test framework. It is a hobby project with the goal of creating a well documented, structured and tested set of libraries/modules. ChatGPT is used (to some extent) to create summaries, descriptions or names for variables/functions/classes etc. The logic should always be checked and tested by the developer, no function may be introduced without a test.
+The Device_DEV project is a device development environment to create and test libraries/modules meant to be used in embedded C99 programs with C++ syntax and object orientation to be used on Cortex-M processors (using the STM32F446 as a target device). The project can be build and ran in either QtCreator using QTest or in VSCode using the Google test framework. It is a hobby project with the goal of creating a well documented, structured and tested set of libraries/modules much like the popular Arduino libraries. By no means should these libraries end up in production code, it's only meant to be used to jumpstart development by providing quick acces to proven and understandable code. ChatGPT is used (to some extent) to create more expressive documentation, descriptions or names for variables/functions/classes etc. The logic should always be checked and tested by the developer, no function may be introduced without a test.
 
 ## Development standards
  - No dynamic memory allocation, nor libraries that make use of, may be used (for example <vector>).
@@ -9,15 +9,10 @@ The Device_DEV project is a development environment to create and test libraries
    - Rationale: Not all Cortex-M processors have floating point units. In some cases floating point usage is inevitable, but should be kept at a minimum.
 
 ## Coding standards
- - All code should be formatted using the .clang-format configuration provided. Exceptions are allowed only in certain structures that cannot be handled properly by the formatter.
- - All classes must be placed inside a namespace. Classes with similar usecases should be grouped within the same namespace.
- - ``` #pragma once ``` must be used as a define guard.
+See StandardRules/See CodingStandards.md
 
 ## Naming standards
- - All functions, variables, typenames and classes must use the lowerCamelCase format.
- - All member variables in a class have a "m_" prefix.
- - Namespaces use TLA (three letter abreviation).
- - Abbreviations may not be used in the names of functions, variables, typenames and classes.
+See StandardRules/NamingStandard.md
 
 ## Doxygen standards & code segmentation
 Since the implementation and documentation must be provided within the header file, the following rules need to be applied to keep code structured.
