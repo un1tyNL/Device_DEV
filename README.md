@@ -15,7 +15,7 @@ See StandardRules/CodingStandards.md
 See StandardRules/NamingStandard.md
 
 ## Doxygen standards & code segmentation
-See StandardRules/DoxygenStandards
+See StandardRules/DoxygenStandards.md
 
 ## Project Structure
 - **Algorithms/**: Libraries for specific algorithms, suitable for embedded systems.
