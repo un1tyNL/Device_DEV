@@ -9,48 +9,13 @@ The Device_DEV project is a device development environment to create and test li
    - Rationale: Not all Cortex-M processors have floating point units. In some cases floating point usage is inevitable, but should be kept at a minimum.
 
 ## Coding standards
-See StandardRules/See CodingStandards.md
+See StandardRules/CodingStandards.md
 
 ## Naming standards
 See StandardRules/NamingStandard.md
 
 ## Doxygen standards & code segmentation
-Since the implementation and documentation must be provided within the header file, the following rules need to be applied to keep code structured.
- - The following standards must be applied consecutively
-   - Must have a code block segment indicating the start of documentation
- ```
-/*************************************************************************\
- * Documentation
-\*************************************************************************/
-```
- - Must provide a doxygen documentation of the file/implementation version and a brief-, detailed-, and usage description of the provided functionality:
-```
-/**
- * @file     <name>.hpp
- * @version  n.n
- * @brief    short description
- * @details  detailed description
- * @note     usage description
- */
-```
- - Must have a code block segment indicating the start of includes
- ```
-/*************************************************************************\
- * Documentation
-\*************************************************************************/
-```
- - Must have a code block segment indicating the start of Prototypes
- ```
-/*************************************************************************\
- * Prototypes
-\*************************************************************************/
-```
- - Must have a code block segment indicating the start of Implementation
- ```
-/*************************************************************************\
- * Implementation
-\*************************************************************************/
-```
+See StandardRules/DoxygenStandards
 
 ## Project Structure
 - **Algorithms/**: Libraries for specific algorithms, suitable for embedded systems.
