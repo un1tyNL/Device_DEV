@@ -1,0 +1,4 @@
+ - All functions, variables, typenames and classes must use the lowerCamelCase format.
+ - All member variables in a class have a "m_" prefix.
+ - Namespaces use TLA (three letter abreviation).
+ - Abbreviations may not be used in the names of functions, variables, typenames and classes.
