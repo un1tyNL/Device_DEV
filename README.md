@@ -38,25 +38,25 @@ See StandardRules/DoxygenStandards.md
 
 ### Using Qt
 
- - 1 Open the project in Qt Creator using the `Device_t.pro` file.
- - 2 Configure the project by selecting a kit (development was done using Qt 5.9.9, MinGW5.30 32bit)
- - 3 Build the project by selecting `Build -> Build Project`.
- - 4 After building, scan for tests `Tools -> Tests`
- - 5 Run the tests from `Tools -> Tests -> Run All Tests`, output should be visible in the `Test Results` tab.
+ - 1. Open the project in Qt Creator using the `Device_t.pro` file.
+ - 2. Configure the project by selecting a kit (development was done using Qt 5.9.9, MinGW5.30 32bit)
+ - 3. Build the project by selecting `Build -> Build Project`.
+ - 4. After building, scan for tests `Tools -> Tests`
+ - 5. Run the tests from `Tools -> Tests -> Run All Tests`, output should be visible in the `Test Results` tab.
 
 ### Using VS Code
  - 1. Open the project folder in VS Code.
- - 2 Make sure to have the following extensions installed to make life easier:
+ - 2. Make sure to have the following extensions installed to make life easier:
    - 1. C/C++
-   - 2 C/C++ Extension Pack
-   - 3 C++ TestMate
-   - 4 CMake
-   - 5 CMake Tools
- - 3 Configure the project in the `CMake` tab (development in VSC was done using Clang 17.0.6 x86_64 from LLVM).
- - 4 Build all projects from the `CMake` tab.
- - 5 In the `Test Explorer` tab, the test can be seen and ran:
-   - 1 Under `CTest` all components are listed, showing the build status of each component.
-   - 2 Under `TestMate C++` all components are listed, showing the result of each individual test.
+   - 2. C/C++ Extension Pack
+   - 3. C++ TestMate
+   - 4. CMake
+   - 5. CMake Tools
+ - 3. Configure the project in the `CMake` tab (development in VSC was done using Clang 17.0.6 x86_64 from LLVM).
+ - 4. Build all projects from the `CMake` tab.
+ - 5. In the `Test Explorer` tab, the test can be seen and ran:
+   - 1. Under `CTest` all components are listed, showing the build status of each component.
+   - 2. Under `TestMate C++` all components are listed, showing the result of each individual test.
 
   
 
