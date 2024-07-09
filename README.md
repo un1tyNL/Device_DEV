@@ -48,16 +48,16 @@ See StandardRules/DoxygenStandards.md
 
 1. Open the project folder in VS Code.
 2. Make sure to have the following extensions installed to make life easier:
- 1. C/C++
- 2. C/C++ Extension Pack
- 3. C++ TestMate
- 4. CMake
- 5. CMake Tools
+ 2.1. C/C++
+ 2.2. C/C++ Extension Pack
+ 2.3. C++ TestMate
+ 2.4. CMake
+ 2.5. CMake Tools
 6. Configure the project in the `CMake` tab (development in VSC was done using Clang 17.0.6 x86_64 from LLVM).
 7. Build all projects from the `CMake` tab.
 8. In the `Test Explorer` tab, the test can be seen and ran:
- 1. Under `CTest` all components are listed, showing the build status of each component.
- 2. Under `TestMate C++` all components are listed, showing the result of each individual test.
+ 8.1. Under `CTest` all components are listed, showing the build status of each component.
+ 8.2. Under `TestMate C++` all components are listed, showing the result of each individual test.
 
   
 
