@@ -35,12 +35,13 @@ Since the implementation and documentation of the modules/classes must be provid
 \*************************************************************************/
 ```
    - Last, there must be a comment block segment signaling the end of the file.
+ ```
 /*************************************************************************\
- * Implementation
+ * End of file
 \*************************************************************************/
 ```
 
  - Doxygen has to be provided with each class/public function in the prototype segment, and must not be repeated in the implementation segment.
   - Rationale: documentation should only be required once. Maintaining documentation in multiple places is next to impossible.
  - In the documentation of parameters, the doxygen needs to provide the information wether the arguments are inputs, outputs or both input and output.
-  - Since we're working with a mixture of C99/C++17 it's important to indicate when you parse a pointer as an argument to a function what the purpose is. Parsing the variabel by pointer because it points to a large object that you do not want to copy? Inserting data into a function that needs to be transformed and returned? or should the owernship of the data belong to the called of the function?
+  - Since we're working with a mixture of C99/C++17 it's important to indicate when you parse a pointer as an argument to a function what it's purpose is. E.g. is it just to parse data into the function [in]? Does the function fill the variable parsed as a pointer with information towards the caller [out]? Or Does the caller need to provide information which is than manipulated and returned to it [in/out]?
