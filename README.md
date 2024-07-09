@@ -1,12 +1,12 @@
 # Device_DEV 
 ## Project Overview
-The Device_DEV project is a device development environment to create and test libraries/modules meant to be used in embedded C99 programs with C++ syntax and object orientation to be used on Cortex-M processors (using the STM32F446 as a target device). The project can be build and ran in either QtCreator using QTest or in VSCode using the Google test framework. It is a hobby project with the goal of creating a well documented, structured and tested set of libraries/modules much like the popular Arduino libraries. By no means should these libraries end up in production code, it's only meant to be used to jumpstart development by providing quick acces to proven and understandable code. ChatGPT is used (to some extent) to create more expressive documentation, descriptions or names for variables/functions/classes etc. The logic should always be checked and tested by the developer, no function may be introduced without a test.
+The Device_DEV project is a device development environment to create and test libraries/modules meant to be used on (Cortex-M) embedded systems using mainly C and some C++ (syntax and object orientation), using the STM32F446 as a target device. The project can be build and tested in either QtCreator using QTest or in VSCode using the Google test framework. It is a hobby project with the goal of creating a well documented, structured and tested set of libraries/modules much like the popular Arduino libraries. By no means should these libraries end up in production code, it's only meant to be used to jumpstart development by providing quick acces to proven, documented and understandable code. Each module is fully implemented in the header file making portability easier. ChatGPT is used (to some extent) to create more expressive documentation, descriptions or names for variables/functions/classes etc. The logic should always be checked and tested by the developer, no function may be introduced without a test.
 
 ## Development standards
  - No dynamic memory allocation, nor libraries that make use of, may be used (for example <vector>).
-   - Rationale: this is not properly supported by the Cortex-M processors.
+   - Rationale: dynamic memory allocation is not properly supported by the Cortex-M processors.
  - Floating point arithmatic should be avoided if possible, double precision is prohibited, fixed point is allowed.
-   - Rationale: Not all Cortex-M processors have floating point units. In some cases floating point usage is inevitable, but should be kept at a minimum.
+   - Rationale: Not all Cortex-M processors have floating point arithmatic units. In some cases floating point usage is inevitable, but should be kept at a minimum.
 
 ## Coding standards
 See StandardRules/CodingStandards.md
