@@ -53,7 +53,7 @@ namespace MEM
    * @tparam   T
    *           Data type of the element stored in the node.
    */
-  template <typename T>
+  template <typename variableType>
   class sllNode
   {
   public:
@@ -67,16 +67,16 @@ namespace MEM
      * @param[in]  data
      *             Data to be stored in the node.
      */
-    sllNode(T data) : m_next(nullptr), m_data(data) {};
+    sllNode(variableType data) : m_next(nullptr), m_data(data) {};
 
     /**
      * @brief     Constructor that initializes the node with given data and the next node pointer.
-     * @param[in] data 
+     * @param[in] data
      *            The data to be stored in the node.
-     * @param[in] next 
+     * @param[in] next
      *            A pointer to the next node in the list.
      */
-    sllNode(T data, sllNode* next) : m_data(data), m_next(next) {};
+    sllNode(variableType data, sllNode* next) : m_data(data), m_next(next) {};
 
     /**
      * @brief  Destructor for the node.
@@ -87,7 +87,7 @@ namespace MEM
      * @brief   Returns a reference to the next node in the list.
      * @return  Reference to the next node in the list.
      */
-    sllNode<T>* getNext() const
+    sllNode<variableType>* getNext() const
     {
       return m_next;
     };
@@ -97,7 +97,7 @@ namespace MEM
      * @param[in]  next
      *             Pointer to the next node in the list.
      */
-    void setNext(sllNode<T>* next)
+    void setNext(sllNode<variableType>* next)
     {
       m_next = next;
     };
@@ -106,7 +106,7 @@ namespace MEM
      * @brief   Returns the data stored in the node.
      * @return  Data stored in the node.
      */
-    T getData() const
+    variableType getData() const
     {
       return m_data;
     };
@@ -116,14 +116,14 @@ namespace MEM
      * @param[in]  data
      *             Data to be stored in the node.
      */
-    void setData(T data)
+    void setData(variableType data)
     {
       m_data = data;
     };
 
   protected:
-    sllNode<T>* m_next; //!< Pointer to the next node in the list.
-    T           m_data; //!< Data stored in the node.
+    sllNode<variableType>* m_next; //!< Pointer to the next node in the list.
+    variableType           m_data; //!< Data stored in the node.
   };
 
   /**
@@ -134,21 +134,21 @@ namespace MEM
    * @tparam   T
    *           Data type of the element stored in the node.
    */
-  template <typename T>
-  class dllNode : public sllNode<T>
+  template <typename variableType>
+  class dllNode : public sllNode<variableType>
   {
   public:
     /**
      * @brief  Default constructor that initializes a node with a null reference to the next and previous nodes and no data.
      */
-    dllNode() : sllNode<T>(), m_prev(nullptr) {};
+    dllNode() : sllNode<variableType>(), m_prev(nullptr) {};
 
     /**
      * @brief      Constructor that initializes a node with a null reference to the next and previous nodes and the specified data.
      * @param[in]  data
      *             Data to be stored in the node.
      */
-    dllNode(T data) : sllNode<T>(data), m_prev(nullptr) {};
+    dllNode(variableType data) : sllNode<variableType>(data), m_prev(nullptr) {};
 
     /**
      * @brief      Constructor that initializes the node with given data, the next node pointer and the previous node pointer.
@@ -159,7 +159,9 @@ namespace MEM
      * @param[in]  prev
      *             A pointer to the previous node in the list.
      */
-    dllNode(T data, dllNode<T>* next, dllNode<T>* prev) : sllNode<T>(data, next), m_prev(prev) {};
+    dllNode(variableType data, dllNode<variableType>* next, dllNode<variableType>* prev) :
+      sllNode<variableType>(data, next),
+      m_prev(prev) {};
 
     /**
      * @brief  Destructor for the node.
@@ -170,7 +172,7 @@ namespace MEM
      * @brief   Returns a reference to the previous node in the list.
      * @return  Reference to the previous node in the list.
      */
-    dllNode<T>* getPrev() const
+    dllNode<variableType>* getPrev() const
     {
       return m_prev;
     };
@@ -180,7 +182,7 @@ namespace MEM
      * @param[in]  prev
      *             Pointer to the previous node in the list.
      */
-    void setPrev(dllNode<T>* prev)
+    void setPrev(dllNode<variableType>* prev)
     {
       m_prev = prev;
     };
@@ -189,9 +191,9 @@ namespace MEM
      * @brief   Returns a reference to the next node in the list.
      * @return  A reference to the next node in the list.
      */
-    dllNode<T>* getNext() const
+    dllNode<variableType>* getNext() const
     {
-      return static_cast<dllNode<T>*>(sllNode<T>::getNext());
+      return static_cast<dllNode<variableType>*>(sllNode<variableType>::getNext());
     }
 
     /**
@@ -199,13 +201,13 @@ namespace MEM
      * @param[in]  next
      *             Pointer to the next node in the list.
      */
-    void setNext(dllNode<T>* next)
+    void setNext(dllNode<variableType>* next)
     {
-      sllNode<T>::setNext(static_cast<sllNode<T>*>(next));
+      sllNode<variableType>::setNext(static_cast<sllNode<variableType>*>(next));
     }
 
   private:
-    dllNode<T>* m_prev; //!< Pointer to the previous node in the list.
+    dllNode<variableType>* m_prev; //!< Pointer to the previous node in the list.
   };
 
   /**
@@ -216,7 +218,7 @@ namespace MEM
    * @tparam   T
    *           Type of data stored in the linked list.
    */
-  template <typename T, typename nodeType = sllNode<T>*>
+  template <typename variableType, typename nodeType = sllNode<variableType>*>
   class singlyLinkedList
   {
   public:
@@ -375,8 +377,8 @@ namespace MEM
    * @tparam   T
    *           Type of data stored in the linked list.
    */
-  template <typename T>
-  class doublyLinkedList : public singlyLinkedList<T, dllNode<T>*>
+  template <typename variableType>
+  class doublyLinkedList : public singlyLinkedList<variableType, dllNode<variableType>*>
   {
   public:
     /**
@@ -394,27 +396,27 @@ namespace MEM
      * @param[in]  node
      *             Pointer to the node to add.
      */
-    void push(dllNode<T>* node) override;
+    void push(dllNode<variableType>* node) override;
 
     /**
      * @brief      Add a node to the front of the list.
-     * @param[in]  node 
+     * @param[in]  node
      *             Pointer to the node to add.
      */
-    void pushFront(dllNode<T>* node) override;
+    void pushFront(dllNode<variableType>* node) override;
 
     /**
      * @brief      Add a node to the back of the list.
-     * @param[in]  node 
+     * @param[in]  node
      *             Pointer to the node to add.
      */
-    void pushBack(dllNode<T>* node) override;
+    void pushBack(dllNode<variableType>* node) override;
 
     /**
      * @brief   Removes the node at the back of the list and returns it.
      * @return  Pointer to the node that was removed, or nullptr if the list is empty.
      */
-    dllNode<T>* pop() override
+    dllNode<variableType>* pop() override
     {
       return popBack();
     };
@@ -423,48 +425,48 @@ namespace MEM
      * @brief   Remove and return the node at the front of the list.
      * @return  Pointer to the node at the front of the list, or nullptr if the list is empty.
      */
-    dllNode<T>* popFront() override;
+    dllNode<variableType>* popFront() override;
 
     /**
      * @brief   Remove and return the node at the back of the list.
      * @return  Pointer to the node at the back of the list, or nullptr if the list is empty.
      */
-    dllNode<T>* popBack() override;
+    dllNode<variableType>* popBack() override;
 
     /**
      * @brief      Add a node after a given node.
-     * @param[in]  prevNode 
+     * @param[in]  prevNode
      *             Pointer to the node to insert after.
-     * @param[in]  newNode 
+     * @param[in]  newNode
      *             Pointer to the node to insert.
      */
-    void insertAfter(dllNode<T>* prevNode, dllNode<T>* newNode) override;
+    void insertAfter(dllNode<variableType>* prevNode, dllNode<variableType>* newNode) override;
 
     /**
      * @brief      Add a node before a given node.
-     * @param[in]  nextNode 
+     * @param[in]  nextNode
      *             Pointer to the node to insert before.
-     * @param[in]  newNode 
+     * @param[in]  newNode
      *             Pointer to the node to insert.
      */
-    void insertBefore(dllNode<T>* nextNode, dllNode<T>* newNode) override;
+    void insertBefore(dllNode<variableType>* nextNode, dllNode<variableType>* newNode) override;
 
     /**
      * @brief   Returns a pointer to the tail node in the doubly linked list.
      * @return  Pointer to the tail node in the doubly linked list.
      */
-    dllNode<T>* getTail() const override
+    dllNode<variableType>* getTail() const override
     {
-      return static_cast<dllNode<T>*>(singlyLinkedList<T, dllNode<T>*>::getTail());
+      return static_cast<dllNode<variableType>*>(singlyLinkedList<variableType, dllNode<variableType>*>::getTail());
     }
 
     /**
      * @brief   Returns a pointer to the head node in the doubly linked list.
      * @return  Pointer to the head node in the doubly linked list.
      */
-    dllNode<T>* getHead() const override
+    dllNode<variableType>* getHead() const override
     {
-      return static_cast<dllNode<T>*>(singlyLinkedList<T, dllNode<T>*>::getHead());
+      return static_cast<dllNode<variableType>*>(singlyLinkedList<variableType, dllNode<variableType>*>::getHead());
     }
 
     /**
@@ -500,14 +502,14 @@ namespace MEM
 namespace MEM
 {
 
-  template <typename T, typename nodeType>
-  void singlyLinkedList<T, nodeType>::push(nodeType node)
+  template <typename variableType, typename nodeType>
+  void singlyLinkedList<variableType, nodeType>::push(nodeType node)
   {
     this->pushBack(node);
   }
 
-  template <typename T, typename nodeType>
-  void singlyLinkedList<T, nodeType>::pushFront(nodeType node)
+  template <typename variableType, typename nodeType>
+  void singlyLinkedList<variableType, nodeType>::pushFront(nodeType node)
   {
     if (m_head == nullptr)
     {
@@ -522,8 +524,8 @@ namespace MEM
     m_count++;
   }
 
-  template <typename T, typename nodeType>
-  void singlyLinkedList<T, nodeType>::pushBack(nodeType node)
+  template <typename variableType, typename nodeType>
+  void singlyLinkedList<variableType, nodeType>::pushBack(nodeType node)
   {
     if (m_tail == nullptr)
     {
@@ -538,8 +540,8 @@ namespace MEM
     m_count++;
   }
 
-  template <typename T, typename nodeType>
-  nodeType singlyLinkedList<T, nodeType>::pop(nodeType node)
+  template <typename variableType, typename nodeType>
+  nodeType singlyLinkedList<variableType, nodeType>::pop(nodeType node)
   {
     if (m_head == nullptr)
     {
@@ -574,14 +576,14 @@ namespace MEM
     return removedNode;
   }
 
-  template <typename T, typename nodeType>
-  nodeType singlyLinkedList<T, nodeType>::pop()
+  template <typename variableType, typename nodeType>
+  nodeType singlyLinkedList<variableType, nodeType>::pop()
   {
     return popBack();
   }
 
-  template <typename T, typename nodeType>
-  nodeType singlyLinkedList<T, nodeType>::popFront()
+  template <typename variableType, typename nodeType>
+  nodeType singlyLinkedList<variableType, nodeType>::popFront()
   {
     if (m_head == nullptr)
     {
@@ -600,8 +602,8 @@ namespace MEM
     return removedNode;
   }
 
-  template <typename T, typename nodeType>
-  nodeType singlyLinkedList<T, nodeType>::popBack()
+  template <typename variableType, typename nodeType>
+  nodeType singlyLinkedList<variableType, nodeType>::popBack()
   {
     if (m_count == 0)
     {
@@ -625,8 +627,8 @@ namespace MEM
     return node;
   }
 
-  template <typename T, typename nodeType>
-  void singlyLinkedList<T, nodeType>::insertAfter(nodeType node, nodeType newNode)
+  template <typename variableType, typename nodeType>
+  void singlyLinkedList<variableType, nodeType>::insertAfter(nodeType node, nodeType newNode)
   {
     if (node == nullptr) // Invalid node, can't insert after it
     {
@@ -643,8 +645,8 @@ namespace MEM
     m_count++;
   }
 
-  template <typename T, typename nodeType>
-  void singlyLinkedList<T, nodeType>::insertBefore(nodeType node, nodeType newNode)
+  template <typename variableType, typename nodeType>
+  void singlyLinkedList<variableType, nodeType>::insertBefore(nodeType node, nodeType newNode)
   {
     if (node == nullptr) // Invalid node, can't insert before it
     {
@@ -670,8 +672,8 @@ namespace MEM
     }
   }
 
-  template <typename T, typename nodeType>
-  nodeType singlyLinkedList<T, nodeType>::getNodeAt(size_t index) const
+  template <typename variableType, typename nodeType>
+  nodeType singlyLinkedList<variableType, nodeType>::getNodeAt(size_t index) const
   {
     if (index >= m_count) // Out of bounds
     {
@@ -687,8 +689,8 @@ namespace MEM
     return current;
   }
 
-  template <typename T, typename nodeType>
-  bool singlyLinkedList<T, nodeType>::testCircularity() const
+  template <typename variableType, typename nodeType>
+  bool singlyLinkedList<variableType, nodeType>::testCircularity() const
   {
     bool     isCircular = false;
     nodeType fast       = m_head;
@@ -709,14 +711,14 @@ namespace MEM
     return isCircular;
   }
 
-  template <typename T>
-  void doublyLinkedList<T>::push(dllNode<T>* node)
+  template <typename variableType>
+  void doublyLinkedList<variableType>::push(dllNode<variableType>* node)
   {
-    doublyLinkedList<T>::pushBack(node);
+    doublyLinkedList<variableType>::pushBack(node);
   }
 
-  template <typename T>
-  void doublyLinkedList<T>::pushFront(dllNode<T>* node)
+  template <typename variableType>
+  void doublyLinkedList<variableType>::pushFront(dllNode<variableType>* node)
   {
     if (this->m_head == nullptr)
     {
@@ -731,8 +733,8 @@ namespace MEM
     this->m_count++;
   }
 
-  template <typename T>
-  void doublyLinkedList<T>::pushBack(dllNode<T>* node)
+  template <typename variableType>
+  void doublyLinkedList<variableType>::pushBack(dllNode<variableType>* node)
   {
     if (this->m_head == nullptr)
     {
@@ -747,15 +749,15 @@ namespace MEM
     this->m_count++;
   }
 
-  template <typename T>
-  dllNode<T>* doublyLinkedList<T>::popFront()
+  template <typename variableType>
+  dllNode<variableType>* doublyLinkedList<variableType>::popFront()
   {
     if (this->m_count == 0)
     {
       return nullptr;
     }
 
-    dllNode<T>* node = this->m_head;
+    dllNode<variableType>* node = this->m_head;
 
     if (this->m_head == this->m_tail)
     {
@@ -773,15 +775,15 @@ namespace MEM
     return node;
   }
 
-  template <typename T>
-  dllNode<T>* doublyLinkedList<T>::popBack()
+  template <typename variableType>
+  dllNode<variableType>* doublyLinkedList<variableType>::popBack()
   {
     if (this->m_count == 0)
     {
       return nullptr;
     }
 
-    dllNode<T>* node = this->m_tail;
+    dllNode<variableType>* node = this->m_tail;
 
     if (this->m_head == this->m_tail)
     {
@@ -799,8 +801,8 @@ namespace MEM
     return node;
   }
 
-  template <typename T>
-  void doublyLinkedList<T>::insertAfter(dllNode<T>* current, dllNode<T>* node)
+  template <typename variableType>
+  void doublyLinkedList<variableType>::insertAfter(dllNode<variableType>* current, dllNode<variableType>* node)
   {
     if (current == this->m_tail)
     {
@@ -808,7 +810,7 @@ namespace MEM
     }
     else
     {
-      node->setPrev(static_cast<dllNode<T>*>(current));
+      node->setPrev(static_cast<dllNode<variableType>*>(current));
       node->setNext(current->getNext());
       current->getNext()->setPrev(node);
       current->setNext(node);
@@ -816,8 +818,8 @@ namespace MEM
     }
   }
 
-  template <typename T>
-  void doublyLinkedList<T>::insertBefore(dllNode<T>* current, dllNode<T>* node)
+  template <typename variableType>
+  void doublyLinkedList<variableType>::insertBefore(dllNode<variableType>* current, dllNode<variableType>* node)
   {
     if (current == this->m_head)
     {

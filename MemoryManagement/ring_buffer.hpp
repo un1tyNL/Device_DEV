@@ -260,7 +260,6 @@ namespace MEM
     T operator[](const size_t index) const;
 
   private:
-
     typedef bool (ringBuffer::*writeFunctions)(T &data); //!< This type definition is for a pointer to a function that writes a single item.
     writeFunctions m_writeFunctionType[2];               //!< An array of pointers to functions that write a single item.
     T *const       m_itemArray;                          //!< A constant pointer to the array to be used as ring buffer.
@@ -268,7 +267,7 @@ namespace MEM
     const size_t   m_elementSize;                        //!< Stores the size of a single data item in the ring buffer, in bytes.
     const size_t   m_arraySize;                          //!< Stores the total size of the array of data items in the ring buffer, in bytes.
     size_t         m_elementsWritten;                    //!< The number of items currently stored in the ring buffer.
-    const bool     dynamicAllocation;                    //!< Indicates whether the data array was dynamically allocated.
+    const bool     m_dynamicAllocation;                  //!< Indicates whether the data array was dynamically allocated.
     T             *m_readPointer;                        //!< Pointer to the current read position in the ring buffer.
     size_t         m_readIndex;                          //!< Index of the current read position in the ring buffer.
     T             *m_writePointer;                       //!< Pointer to the current write position in the ring buffer.
@@ -350,7 +349,7 @@ namespace MEM
     m_elementCount(elementCount),
     m_elementSize(sizeof(T)),
     m_arraySize(elementCount * sizeof(T)),
-    dynamicAllocation(true)
+    m_dynamicAllocation(true)
   {
     reset();
     m_overwriteSetting = MEM::RINGBUFFER_NO_OVERWRITE;
@@ -363,7 +362,7 @@ namespace MEM
     m_elementCount(elementCount),
     m_elementSize(sizeof(T)),
     m_arraySize(elementCount * sizeof(T)),
-    dynamicAllocation(true),
+    m_dynamicAllocation(true),
     m_overwriteSetting(overWrite)
   {
     reset();
@@ -376,7 +375,7 @@ namespace MEM
     m_elementCount(elementCount),
     m_elementSize(sizeof(T)),
     m_arraySize(elementCount * sizeof(T)),
-    dynamicAllocation(false)
+    m_dynamicAllocation(false)
   {
     reset();
     m_overwriteSetting = MEM::RINGBUFFER_NO_OVERWRITE;
@@ -389,7 +388,7 @@ namespace MEM
     m_elementCount(elementCount),
     m_elementSize(sizeof(T)),
     m_arraySize(elementCount * sizeof(T)),
-    dynamicAllocation(false),
+    m_dynamicAllocation(false),
     m_overwriteSetting(overWrite)
   {
     reset();
@@ -399,7 +398,7 @@ namespace MEM
   template <typename T>
   ringBuffer<T>::~ringBuffer()
   {
-    if (dynamicAllocation == true)
+    if (m_dynamicAllocation == true)
     {
       delete[] m_itemArray;
     }

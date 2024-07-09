@@ -293,7 +293,7 @@ TEST_CASE(testRingBuffer, testStaticBufferDifferentTypes)
   // Test using myVoid_p type
   int   myInt   = 42;
   char  myChar  = 'a';
-  float myFloat = 3.14;
+  float myFloat = 3.14f;
   void *myVoid  = nullptr;
 
   // Add an integer to the ring buffer

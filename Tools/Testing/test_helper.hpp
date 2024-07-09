@@ -1,5 +1,4 @@
 #if defined(QT_TESTLIB_LIB)
-#define QVERIFY                     QVERIFY
 #define TEST_CASE(object, testcase) void object::testcase()
 #else
 #undef QVERIFY

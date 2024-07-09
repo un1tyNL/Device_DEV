@@ -110,7 +110,29 @@
         "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
         "files.defaultLanguage": "c",
         "task.autoDetect": "off",
-        "window.title" : "${rootName}${separator}${dirty}${activeEditorShort}${separator}${folderPath}"
+        "window.title": "${rootName}${separator}${dirty}${activeEditorShort}${separator}${folderPath}",
+        "editor.tokenColorCustomizations": {
+            "textMateRules": [
+                {
+                    "scope": "googletest.failed",
+                    "settings": {
+                        "foreground": "#f00"
+                    }
+                },
+                {
+                    "scope": "googletest.passed",
+                    "settings": {
+                        "foreground": "#0f0"
+                    }
+                },
+                {
+                    "scope": "googletest.run",
+                    "settings": {
+                        "foreground": "#0f0"
+                    }
+                }
+            ]
+        }
     },
     "extensions": {
         "recommendations": [

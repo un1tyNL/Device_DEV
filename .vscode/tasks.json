@@ -3,36 +3,36 @@
 	"tasks": [
 		{
 			"type": "cmake",
-			"label": "CMake: clean rebuild",
+			"label": "clean rebuild",
 			"command": "cleanRebuild",
 			"targets": [
 				"all"
 			],
 			"group": "build",
 			"problemMatcher": [],
-			"detail": "CMake template clean rebuild task"
+			"detail": "clean rebuild task"
 		},
 		{
 			"type": "cmake",
-			"label": "CMake: clean",
+			"label": "clean",
 			"command": "clean",
 			"targets": [
 				"all"
 			],
 			"group": "build",
 			"problemMatcher": [],
-			"detail": "CMake template clean task"
+			"detail": "clean task"
 		},
 		{
 			"type": "cmake",
-			"label": "CMake: build",
+			"label": "build",
 			"command": "build",
 			"targets": [
 				"all"
 			],
 			"group": "build",
 			"problemMatcher": [],
-			"detail": "CMake template build task"
+			"detail": "build task"
 		}
 	]
 }
