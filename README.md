@@ -45,8 +45,8 @@ See StandardRules/DoxygenStandards.md
  - 5. Run the tests from `Tools -> Tests -> Run All Tests`, output should be visible in the `Test Results` tab.
 
 ### Using VS Code
- - 1. Open the project folder in VS Code.
- - 2. Make sure to have the following extensions installed to make life easier:
+ -1 Open the project folder in VS Code.
+ -2. Make sure to have the following extensions installed to make life easier:
    - 2.1. C/C++
    - 2.2. C/C++ Extension Pack
    - 2.3. C++ TestMate
