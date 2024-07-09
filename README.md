@@ -34,30 +34,32 @@ See StandardRules/DoxygenStandards.md
 - **Device_t.code-workspace**: VS Code workspace settings.
 - **Device_t.pro**, **Device_t.pro.user**: Qt project files.
 
-## Building the Project
+## Building & testing the project
 
 ### Using Qt
 
 1. Open the project in Qt Creator using the `Device_t.pro` file.
-2. The only required configuration is assigning the compiler.
+2. Configure the project by selecting a kit (development was done using Qt 5.9.9, MinGW5.30 32bit)
 3. Build the project by selecting `Build -> Build Project`.
+4. After building, scan for tests `Tools -> Tests`
+5. Run the tests from `Tools -> Tests -> Run All Tests`, output should be visible in the `Test Results` tab.
 
 ### Using VS Code
 
 1. Open the project folder in VS Code.
-2. The only required configuration is assigning the compiler.
-3. Use the integrated terminal to run build commands (e.g., `cmake`, `make`).
+2. Make sure to have the following extensions installed to make life easier:
+ 1. C/C++
+ 2. C/C++ Extension Pack
+ 3. C++ TestMate
+ 4. CMake
+ 5. CMake Tools
+6. Configure the project in the CMake tab (development in VSC was done using Clang 17.0.6 x86_64 from LLVM).
+7. Build all projects from the CMake tab.
+8. The in the test explorer tab:
+ 1. Under CTest all components are listed, showing the build status of each component.
+ 2. Under TestMate C++ all components are listed, showing the result of each individual test.
+3. 3. 
 
-## Testing the Project
 
-### Using QTest with Qt
 
-1. Open the test directories within Qt Creator.
-2. Execute tests by right-clicking on them and selecting `Run 'test_name'`.
-
-### Using Google Test with VS Code
-
-1. Google Test should be set up in the project.
-2. Navigate to the test files in the VS Code explorer.
-3. Run and manage tests using the Test Explorer in VS Code.
 
