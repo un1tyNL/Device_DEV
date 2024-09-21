@@ -1,0 +1,3 @@
+{
+    "command-pickExecutable.script": "${workspaceFolder}/.vscode/listExecutables.exe ${workspaceFolder}/build"
+}

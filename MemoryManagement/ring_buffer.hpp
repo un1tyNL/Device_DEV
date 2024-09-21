@@ -57,7 +57,7 @@ namespace MEM
    *           Data type of the elements in the ring buffer.
    */
   template <typename T>
-  class ringBuffer
+  class ringBuffer : public baseClass
   {
   public:
     /**
