@@ -1,4 +1,3 @@
-#include "../linked_list.hpp"
 #include "../../Tools/Testing/test_helper.hpp"
 
 #if defined(QT_TESTLIB_LIB)

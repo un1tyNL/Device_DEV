@@ -20,7 +20,12 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <string.h>
+#include <string>
+#include <cstddef>
+#include <stdexcept>
+#include <type_traits>
+#include <mutex>
+#include <optional>
 
 /*************************************************************************\
 * Definitions

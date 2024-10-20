@@ -21,7 +21,9 @@ HEADERS += \
     MemoryManagement/linked_list.hpp \
     MemoryManagement/memory_compression.hpp \
     MemoryManagement/memory_pool.hpp \
-    MemoryManagement/ring_buffer.hpp
+    MemoryManagement/ring_buffer.hpp \
+    MemoryManagement/queue.hpp \
+    Tools/Testing/test_helper_test/test_helper_test.cpp \
 
 INCLUDEPATH += \
     CoreComponents \
@@ -29,12 +31,15 @@ INCLUDEPATH += \
     DeviceManagement/GPS \
     MemoryManagement \
     MemoryManagement/ThirdParty \
-    SignalProcessing
+    SignalProcessing \
+    Tools/Testing
 
 TEMPLATE = subdirs
 SUBDIRS += \
+    Tools/Testing/test_helper_test/test_helper_test.pro \
     MemoryManagement/linked_list_test/linked_list_test.pro \
     MemoryManagement/memory_compression_test/memory_compression_test.pro \
     MemoryManagement/memory_pool_test/memory_pool_test.pro \
     MemoryManagement/ring_buffer_test/ring_buffer_test.pro \
+    MemoryManagement/queue_test/queue_test.pro
 

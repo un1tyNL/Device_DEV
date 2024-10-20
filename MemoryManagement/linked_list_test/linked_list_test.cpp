@@ -1,5 +1,7 @@
 #include "../../Tools/Testing/test_helper.hpp"
-#include "../linked_list.hpp"
+#include "../doubly_linked_list.hpp"
+#include "../singly_linked_list.hpp"
+#include <iterator> // Include this if using reverse range-based for loop
 
 #if defined(QT_TESTLIB_LIB)
 #include <QCoreApplication>
@@ -23,7 +25,7 @@ private slots:
   void testSinglyLinkedInsertAfter();
   void testSinglyLinkedInsertBefore();
   void testSinglyLinkedGetNodeAt();
-  void testSinglyLinkedTestCircularity();
+  void testSinglyLinkedIteration();
 
   void testDoublyLinkedPush();
   void testDoublyLinkedPushFront();
@@ -34,7 +36,6 @@ private slots:
   void testDoublyLinkedInsertAfter();
   void testDoublyLinkedInsertBefore();
   void testDoublyLinkedGetNodeAt();
-  void testDoublyLinkedTestCircularity();
   void testDoublyLinkedIteration();
 };
 #endif
@@ -59,9 +60,10 @@ TEST_CASE(testLinkedList, testSinglyLinkedPush)
   QCOMPARE(list.getTail()->getData(), node3->getData());
   QCOMPARE(list.getCount(), static_cast<size_t>(3));
 
-  delete node1;
-  delete node2;
-  delete node3;
+
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
 TEST_CASE(testLinkedList, testSinglyLinkedPushFront)
@@ -79,9 +81,9 @@ TEST_CASE(testLinkedList, testSinglyLinkedPushFront)
   QCOMPARE(list.getTail(), node1);
   QCOMPARE(list.getCount(), static_cast<size_t>(3));
 
-  delete node1;
-  delete node2;
-  delete node3;
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
 TEST_CASE(testLinkedList, testSinglyLinkedPushBack)
@@ -99,9 +101,9 @@ TEST_CASE(testLinkedList, testSinglyLinkedPushBack)
   QCOMPARE(list.getTail(), node3);
   QCOMPARE(list.getCount(), static_cast<size_t>(3));
 
-  delete node1;
-  delete node2;
-  delete node3;
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
 TEST_CASE(testLinkedList, testSinglyLinkedPop)
@@ -212,10 +214,10 @@ TEST_CASE(testLinkedList, testSinglyLinkedInsertAfter)
   QCOMPARE(list.getNodeAt(2), newNode);
   QCOMPARE(list.getNodeAt(3), node1);
 
-  delete node1;
-  delete node2;
-  delete node3;
-  delete newNode;
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
 TEST_CASE(testLinkedList, testSinglyLinkedInsertBefore)
@@ -237,15 +239,14 @@ TEST_CASE(testLinkedList, testSinglyLinkedInsertBefore)
   QCOMPARE(list.getNodeAt(2), node2);
   QCOMPARE(list.getNodeAt(3), node1);
 
-  delete node1;
-  delete node2;
-  delete node3;
-  delete newNode;
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
 TEST_CASE(testLinkedList, testSinglyLinkedGetNodeAt)
 {
-  // Create a list with 5 nodes containing the values 0, 1, 2, 3, 4
   MEM::singlyLinkedList<int> list;
   for (int i = 0; i < 5; i++)
   {
@@ -253,45 +254,67 @@ TEST_CASE(testLinkedList, testSinglyLinkedGetNodeAt)
     list.pushBack(node);
   }
 
-  // Test getting nodes at valid and invalid indices
-  QVERIFY(list.getNodeAt(0)->getData() == 0);
-  QVERIFY(list.getNodeAt(4)->getData() == 4);
-  QVERIFY(list.getNodeAt(2)->getData() == 2);
+  QVERIFY(list.getNodeAt(0) != nullptr);
+  QCOMPARE(list.getNodeAt(0)->getData(), 0);
+  QVERIFY(list.getNodeAt(4) != nullptr);
+  QCOMPARE(list.getNodeAt(4)->getData(), 4);
+  QVERIFY(list.getNodeAt(2) != nullptr);
+  QCOMPARE(list.getNodeAt(2)->getData(), 2);
   QVERIFY(list.getNodeAt(5) == nullptr);
 
-  for (int i = 0; i < 5; i++)
+
+  while (list.getCount() > 0)
   {
-    delete list.pop();
+    delete list.popFront();
   }
 }
 
-TEST_CASE(testLinkedList, testSinglyLinkedTestCircularity)
+TEST_CASE(testLinkedList, testSinglyLinkedIteration)
 {
-  // Create a list with 5 nodes containing the values 0, 1, 2, 3, 4
   MEM::singlyLinkedList<int> list;
-  for (int i = 0; i < 5; i++)
+
+  MEM::sllNode<int>* nodes[5];
+  for (int i = 0; i < 5; ++i)
   {
-    MEM::sllNode<int>* node = new MEM::sllNode<int>(i);
-    list.pushBack(node);
+    nodes[i] = new MEM::sllNode<int>(i + 1);
+    list.pushBack(nodes[i]);
   }
 
-  // Test non-circular list
-  QVERIFY(!list.testCircularity());
-
-  // Make the list circular and test again
-  list.makeCircular();
-  QVERIFY(list.testCircularity());
-
-  // Break the circularity and test again
-  list.breakCircularity();
-  QVERIFY(!list.testCircularity());
-
-  for (int i = 0; i < 5; i++)
+  // 1. Forward iteration using getNext()
+  int expected_value = 1;
+  for (auto node = list.getHead(); node != nullptr; node = node->getNext())
   {
-    delete list.pop();
+    QCOMPARE(node->getData(), expected_value);
+    expected_value++;
+  }
+
+  // 2. Forward iteration using iterators
+  expected_value = 1;
+  for (auto it = list.begin(); it != list.end(); ++it)
+  {
+    QCOMPARE(*it, expected_value);
+    expected_value++;
+  }
+
+  // 3. Forward iteration using range-based for loop
+  expected_value = 1;
+  for (const int& value : list)
+  {
+    QCOMPARE(value, expected_value);
+    expected_value++;
+  }
+
+
+  while (list.getCount() > 0)
+  {
+    delete list.popFront();
   }
 }
 
+
+/*************************************************************************\
+* Doubly linked list
+\*************************************************************************/
 TEST_CASE(testLinkedList, testDoublyLinkedPush)
 {
   MEM::doublyLinkedList<int> list;
@@ -308,11 +331,13 @@ TEST_CASE(testLinkedList, testDoublyLinkedPush)
   QCOMPARE(list.getHead()->getData(), 1);
   QCOMPARE(list.getTail()->getData(), 3);
   QCOMPARE(list.getCount(), static_cast<size_t>(3));
+
+
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
-/*************************************************************************\
-* Doubly linked list
-\*************************************************************************/
 TEST_CASE(testLinkedList, testDoublyLinkedPushFront)
 {
   MEM::doublyLinkedList<int> list;
@@ -327,6 +352,11 @@ TEST_CASE(testLinkedList, testDoublyLinkedPushFront)
   QCOMPARE(list.getHead(), node3);
   QCOMPARE(list.getTail(), node1);
   QCOMPARE(list.getCount(), static_cast<size_t>(3));
+
+
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
 TEST_CASE(testLinkedList, testDoublyLinkedPushBack)
@@ -343,6 +373,11 @@ TEST_CASE(testLinkedList, testDoublyLinkedPushBack)
   QCOMPARE(list.getHead(), node1);
   QCOMPARE(list.getTail(), node3);
   QCOMPARE(list.getCount(), static_cast<size_t>(3));
+
+
+  delete list.popFront();
+  delete list.popFront();
+  delete list.popFront();
 }
 
 TEST_CASE(testLinkedList, testDoublyLinkedPop)
@@ -363,6 +398,11 @@ TEST_CASE(testLinkedList, testDoublyLinkedPop)
   QCOMPARE(list.getHead(), nullptr);
   QCOMPARE(list.getTail(), nullptr);
   QCOMPARE(list.getCount(), static_cast<size_t>(0));
+
+
+  delete node1;
+  delete node2;
+  delete node3;
 }
 
 TEST_CASE(testLinkedList, testDoublyLinkedPopFront)
@@ -380,6 +420,11 @@ TEST_CASE(testLinkedList, testDoublyLinkedPopFront)
   QCOMPARE(list.popFront(), node2);
   QCOMPARE(list.popFront(), node1);
   QCOMPARE(list.popFront(), nullptr);
+
+
+  delete node1;
+  delete node2;
+  delete node3;
 }
 
 TEST_CASE(testLinkedList, testDoublyLinkedPopBack)
@@ -398,6 +443,7 @@ TEST_CASE(testLinkedList, testDoublyLinkedPopBack)
   QCOMPARE(list.popBack(), node1);
   QCOMPARE(list.popBack(), nullptr);
 
+
   delete node1;
   delete node2;
   delete node3;
@@ -405,7 +451,6 @@ TEST_CASE(testLinkedList, testDoublyLinkedPopBack)
 
 TEST_CASE(testLinkedList, testDoublyLinkedInsertAfter)
 {
-  // Create a new doubly linked list with 3 nodes
   MEM::doublyLinkedList<int> list;
   MEM::dllNode<int>*         node1 = new MEM::dllNode<int>(1);
   MEM::dllNode<int>*         node2 = new MEM::dllNode<int>(2);
@@ -414,21 +459,19 @@ TEST_CASE(testLinkedList, testDoublyLinkedInsertAfter)
   list.pushBack(node2);
   list.pushBack(node3);
 
-  // Insert a new node after the second node
   MEM::dllNode<int>* newNode = new MEM::dllNode<int>(4);
   list.insertAfter(node2, newNode);
 
-  // Check that the new node was inserted in the correct position
   QCOMPARE(list.getNodeAt(0), node1);
   QCOMPARE(list.getNodeAt(1), node2);
   QCOMPARE(list.getNodeAt(2), newNode);
   QCOMPARE(list.getNodeAt(3), node3);
 
-  // Delete the nodes to prevent memory leaks
-  delete node1;
-  delete node2;
-  delete node3;
-  delete newNode;
+
+  while (list.getCount() > 0)
+  {
+    delete list.popFront();
+  }
 }
 
 TEST_CASE(testLinkedList, testDoublyLinkedInsertBefore)
@@ -450,15 +493,15 @@ TEST_CASE(testLinkedList, testDoublyLinkedInsertBefore)
   QCOMPARE(list.getNodeAt(2), node2);
   QCOMPARE(list.getNodeAt(3), node3);
 
-  delete node1;
-  delete node2;
-  delete node3;
-  delete newNode;
+
+  while (list.getCount() > 0)
+  {
+    delete list.popFront();
+  }
 }
 
 TEST_CASE(testLinkedList, testDoublyLinkedGetNodeAt)
 {
-  // Create a list with 5 nodes containing the values 0, 1, 2, 3, 4
   MEM::doublyLinkedList<int> list;
   for (int i = 0; i < 5; i++)
   {
@@ -466,42 +509,21 @@ TEST_CASE(testLinkedList, testDoublyLinkedGetNodeAt)
     list.pushBack(node);
   }
 
-  // Test getting nodes at valid and invalid indices
-  QVERIFY(list.getNodeAt(0)->getData() == 0);
-  QVERIFY(list.getNodeAt(4)->getData() == 4);
-  QVERIFY(list.getNodeAt(2)->getData() == 2);
+  QVERIFY(list.getNodeAt(0) != nullptr);
+  QCOMPARE(list.getNodeAt(0)->getData(), 0);
+
+  QVERIFY(list.getNodeAt(4) != nullptr);
+  QCOMPARE(list.getNodeAt(4)->getData(), 4);
+
+  QVERIFY(list.getNodeAt(2) != nullptr);
+  QCOMPARE(list.getNodeAt(2)->getData(), 2);
+
   QVERIFY(list.getNodeAt(5) == nullptr);
 
-  for (int i = 0; i < 5; i++)
+
+  while (list.getCount() > 0)
   {
-    delete list.pop();
-  }
-}
-
-TEST_CASE(testLinkedList, testDoublyLinkedTestCircularity)
-{
-  // Create a list with 5 nodes containing the values 0, 1, 2, 3, 4
-  MEM::doublyLinkedList<int> list;
-  for (int i = 0; i < 5; i++)
-  {
-    MEM::dllNode<int>* node = new MEM::dllNode<int>(i);
-    list.pushBack(node);
-  }
-
-  // Test non-circular list
-  QVERIFY(!list.testCircularity());
-
-  // Make the list circular and test again
-  list.makeCircular();
-  QVERIFY(list.testCircularity());
-
-  // Break the circularity and test again
-  list.breakCircularity();
-  QVERIFY(!list.testCircularity());
-
-  for (int i = 0; i < 5; i++)
-  {
-    delete list.pop();
+    delete list.popFront();
   }
 }
 
@@ -510,40 +532,80 @@ TEST_CASE(testLinkedList, testDoublyLinkedIteration)
   MEM::doublyLinkedList<int> list;
 
   MEM::dllNode<int>* nodes[5];
-  for (int i = 0; i < 5; i++)
+  for (int i = 0; i < 5; ++i)
   {
-    nodes[i] = new MEM::dllNode<int>();
-    nodes[i]->setData(i + 1);
-    list.push(nodes[i]);
+    nodes[i] = new MEM::dllNode<int>(i + 1);
+    list.pushBack(nodes[i]);
   }
 
-  // Forward iteration
+
+  // 1. Forward iteration using getNext()
   int expected_value = 1;
   for (auto node = list.getHead(); node != nullptr; node = node->getNext())
   {
     QCOMPARE(node->getData(), expected_value);
     if (node->getNext() != nullptr)
     {
+      // Verify the linkage between nodes
       QCOMPARE(node->getNext()->getPrev(), node);
     }
     expected_value++;
   }
 
-  // Backward iteration
+
+  // 2. Backward iteration using getPrev()
   expected_value = 5;
   for (auto node = list.getTail(); node != nullptr; node = node->getPrev())
   {
     QCOMPARE(node->getData(), expected_value);
     if (node->getPrev() != nullptr)
     {
+      // Verify the linkage between nodes
       QCOMPARE(node->getPrev()->getNext(), node);
     }
     expected_value--;
   }
 
-  for (int i = 0; i < 5; i++)
+
+  // 3. Forward iteration using iterators
+  expected_value = 1;
+  for (auto it = list.begin(); it != list.end(); ++it)
   {
-    delete list.pop();
+    QCOMPARE(*it, expected_value);
+    expected_value++;
+  }
+
+
+  // 4. Reverse iteration using iterators
+  expected_value = 5;
+  for (auto it = list.rbegin(); it != list.rend(); --it)
+  {
+    QCOMPARE(*it, expected_value);
+    expected_value--;
+  }
+
+
+  // 5. Forward iteration using range-based for loop
+  expected_value = 1;
+  for (const int& value : list)
+  {
+    QCOMPARE(value, expected_value);
+    expected_value++;
+  }
+
+
+  // 6. Reverse iteration using reverse() in a range-based for loop
+  expected_value = 5;
+  for (const int& value : list.reverse())
+  {
+    QCOMPARE(value, expected_value);
+    expected_value--;
+  }
+
+
+  while (list.getCount() > 0)
+  {
+    delete list.popFront();
   }
 }
 

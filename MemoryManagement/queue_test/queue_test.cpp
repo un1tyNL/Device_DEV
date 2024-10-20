@@ -1,5 +1,5 @@
 #include "../../Tools/Testing/test_helper.hpp"
-#include "queue.hpp"
+#include "../queue.hpp"
 
 
 #if defined(QT_TESTLIB_LIB)
@@ -23,8 +23,6 @@ private slots:
   void testConcurrentLifoOperations();
 };
 #endif
-
-// TEST_CASE macro is assumed to be defined in "../../Tools/Testing/test_helper.hpp"
 
 TEST_CASE(testQueue, testFifoEnqueueDequeue)
 {
@@ -205,5 +203,5 @@ TEST_CASE(testQueue, testConcurrentLifoOperations)
 
 #if defined(QT_TESTLIB_LIB)
 QTEST_GUILESS_MAIN(testQueue)
-#include "test_queue.moc"
+#include "queue_test.moc"
 #endif
